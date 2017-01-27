@@ -92,8 +92,7 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
         itr += 1
     return datas
 
-def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep):
-    google_cheap_price_class = '-d-yb'
+def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class):
     google_processing_price_class = ''
     for config_origem in config_origem:
         for destino in config_destinos.items():
@@ -113,7 +112,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
 
                     driver.set_window_size( 2048, 2048)  # set browser size.
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
-                    # print url
+
                     driver.get( url )
                     time.sleep(timersleep)
                     driver.implicitly_wait(timersleep)
@@ -136,6 +135,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         print valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + "-"  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M")
                         driver.quit()
                     except NoSuchElementException, e:
+                        print "\n"
                         notfound_class = '.' + class_splited[0] + '-Pb-e'
                         resultado = driver.find_element_by_css_selector(notfound_class)
                         for ne in nao_existe:
@@ -188,6 +188,7 @@ try:
     e_month = config_params['end_month']
     e_day = config_params['end_day']
     timersleep = config_params['sleep']
+    google_cheap_price_class = config_params['google_cheap_price_class_suffix']
 
     datas = date_interval(s_year,s_month, s_day, e_year,e_month, e_day)
 except Exception, e:
@@ -201,4 +202,4 @@ config_datas = datas
 problemas = deque()
 nao_existe = deque()
 search(config_origem, config_destino, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check,
-       min_days_in_place, timersleep)
+       min_days_in_place, timersleep, google_cheap_price_class)

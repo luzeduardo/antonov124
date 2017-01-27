@@ -9,5 +9,6 @@
   "periodo_de_dias_exatos":"True",
   "ida_durante_semana":"True",
   "volta_durante_semana":"True",
-  "sleep":1
+  "sleep":2,
+  "google_cheap_price_class":"-d-yb"
 }
