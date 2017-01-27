@@ -12,5 +12,5 @@ RUN curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION
   && unzip "chromedriver_linux64.zip" -d /usr/local/bin \
   && rm "chromedriver_linux64.zip"
 
-WORKDIR /
+WORKDIR /app
 ENTRYPOINT ["python", "google.py"]
