@@ -13,7 +13,4 @@ RUN curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION
   && rm "chromedriver_linux64.zip"
 
 WORKDIR /app
-COPY . /app
-RUN virtualenv /env && . /env/bin/activate && /env/bin/pip install -r /app/requirements.txt && pip install -U selenium
-
-CMD ["/env/bin/python2", "google.py"]
+CMD ["python", "google.py"]
