@@ -1,7 +1,7 @@
 ## Antonov124
 - Um utilitário para busca de passagens aéreas.
 - O resultado será algo parecido com o valor encontrado, datas de embarque/desembarque e origem/destino e link para acesso :
-__R$307	307	2017-05-13	2017-05-15	GIG	Belo Horizonte – Confins (MG)	CNF__
+__R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 
 
 ## Como usar
