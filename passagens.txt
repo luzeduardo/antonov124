@@ -1,0 +1,10 @@
+Attaching to hb20percentnomfclient_python_1
+[36mpython_1  |[0m Hora Fim: 27/01/2017 16:46
+[36mpython_1  |[0m Traceback (most recent call last):
+[36mpython_1  |[0m   File "google.py", line 204, in <module>
+[36mpython_1  |[0m     min_days_in_place, timersleep)
+[36mpython_1  |[0m   File "google.py", line 151, in search
+[36mpython_1  |[0m     driver.quit()
+[36mpython_1  |[0m UnboundLocalError: local variable 'driver' referenced before assignment
+[36mhb20percentnomfclient_python_1 exited with code 1
+[0m

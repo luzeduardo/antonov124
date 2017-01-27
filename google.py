@@ -150,7 +150,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     problemas.append('Problema ao retornar elemento principal: ' + str(destino[1]) +"\t")
                     driver.quit()
 
-print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
+    print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
 
 try:
     with open('/app/config_origem.json', 'r') as f:

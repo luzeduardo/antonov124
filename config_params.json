@@ -6,7 +6,7 @@
   "end_month": 5,
   "end_year": 2017,
   "minimo_dias_no_lugar": 3,
-  "periodo_de_dias_exatos":"False",
+  "periodo_de_dias_exatos":"True",
   "ida_durante_semana":"True",
   "volta_durante_semana":"True",
   "sleep":1
