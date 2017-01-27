@@ -1,6 +1,6 @@
 FROM gliderlabs/alpine:3.3
 ENV PHANTOMBIN=phantomjs
-ENV PHANTOMJS=phantomjs-2.1.1-linux-x86_64
+ENV PHANTOMJS=phantomjs-2.1.1-linux-i686.tar.bz2
 ENV PHANTOMJSVERSION=${PHANTOMJS}.tar.bz2
 ENV PHANTOMJSURL=https://bitbucket.org/ariya/phantomjs/downloads/${PHANTOMJSVERSION}
 RUN apk add --update \
