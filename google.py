@@ -107,9 +107,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         continue
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
-                    driver = webdriver.Chrome('/usr/local/bin/chromedriver', binservice_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-
+                    driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
                     driver.set_window_size( 2048, 2048)  # set browser size.
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
                     print "\n"
@@ -147,6 +145,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         problemas.append('Problema ao retornar valor de: ' + str(destino[1]) +"\t" + url)
                         driver.quit()
                 except Exception, e:
+                    print e
                     problemas.append('Problema ao retornar elemento principal: ' + str(destino[1]) +"\t")
                     driver.quit()
 

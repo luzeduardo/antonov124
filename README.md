@@ -6,8 +6,6 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 
 ## Como usar
 
-
-
 * `config_origem.json` json com os aeroportos de origem;
 * `config_destino.json` json com os aeroportos de destino;
 * `config_params.json` json com as configurações de busca;
@@ -38,7 +36,11 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
       "sleep":1
   }
 
+#Dependências
+- [http://phantomjs.org/]
+- python-pip python-dev
+
 ```sh
-`docker-compose build `
-`docker-compose run python google.py`
+`bash config.sh `
+`python google.py`
 ```
