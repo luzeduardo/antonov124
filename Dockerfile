@@ -20,6 +20,6 @@ RUN apk add --update \
 WORKDIR /app
 
 COPY . /app
-RUN virtualenv /env && /env/bin/pip install -r /app/requirements.txt
+RUN virtualenv /env && source /env/bin/activate && /env/bin/pip install -r /app/requirements.txt
 
 CMD ["/env/bin/python", "google.py"]
