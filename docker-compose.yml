@@ -8,3 +8,4 @@ python:
     - phantom
   volumes:
     - ./:/app
+# docker run -p 8910:8910 wernight/phantomjs phantomjs --webdriver=8910
