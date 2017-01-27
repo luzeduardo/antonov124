@@ -188,7 +188,7 @@ try:
     e_month = config_params['end_month']
     e_day = config_params['end_day']
     timersleep = config_params['sleep']
-    google_cheap_price_class = config_params['google_cheap_price_class_suffix']
+    google_cheap_price_class = config_params['classe_google_menor_preco_sufixo']
 
     datas = date_interval(s_year,s_month, s_day, e_year,e_month, e_day)
 except Exception, e:

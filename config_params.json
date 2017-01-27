@@ -10,5 +10,5 @@
   "ida_durante_semana":"True",
   "volta_durante_semana":"True",
   "sleep":2,
-  "google_cheap_price_class":"-d-yb"
+  "classe_google_menor_preco_sufixo":"-d-yb"
 }

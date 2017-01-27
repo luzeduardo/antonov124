@@ -39,5 +39,6 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
   }
 
 ```sh
-`docker-compose up --build `
+`docker-compose build `
+`docker-compose run python google.py`
 ```
