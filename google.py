@@ -8,6 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 from datetime import datetime, date, timedelta
 from collections import OrderedDict, deque
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 import json
 import re
@@ -113,7 +114,9 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
                     #driver = webdriver.Firefox()
-                    driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+                    # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+                    # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+                    driver = webdriver.Remote(command_executor='http://127.0.0.1:8910', desired_capabilities=DesiredCapabilities.PHANTOMJS)
                     driver.set_window_size( 2048, 2048)  # set browser size.
 
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
@@ -156,7 +159,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         driver.quit()
                     #print("--- %s seconds ---" % (time.time() - start_time_loop))
                 except Exception, e:
-                    problemas.append('Problema ao retornar elemento principal: ' + str(destino[1]) +"\t" + url)
+                    problemas.append('Problema ao retornar elemento principal: ' + str(destino[1]) +"\t")
                     driver.quit()
 #print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
 #print("--- %s seconds ---" % (time.time() - start_time))
@@ -165,19 +168,19 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
 #     print erros
 
 try:
-    with open('config_origem.json', 'r') as f:
+    with open('/app/config_origem.json', 'r') as f:
         config_origem = json.load(f)
 except Exception,e:
-    print "Json de oriegm inválido"
+    print "Json de origem inválido"
 
 try:
-    with open('config_destino.json', 'r') as f:
+    with open('/app/config_destino.json', 'r') as f:
         config_destino = json.load(f)
 except Exception,e:
     print "Json de destino inválido"
 
 try:
-    with open('config_params.json', 'r') as f:
+    with open('/app/config_params.json', 'r') as f:
         config_params = json.load(f)
 except Exception,e:
     print "Json de parâmetros inválido"
