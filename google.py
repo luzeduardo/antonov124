@@ -112,8 +112,8 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
 
                     driver.set_window_size( 2048, 2048)  # set browser size.
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
-
-                    driver.get( url )
+                    print "\n"
+                    driver.get(url)
                     time.sleep(timersleep)
                     driver.implicitly_wait(timersleep)
 
@@ -153,19 +153,19 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
     print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
 
 try:
-    with open('/app/config_origem.json', 'r') as f:
+    with open('config_origem.json', 'r') as f:
         config_origem = json.load(f)
 except Exception,e:
     print "Json de origem inválido"
 
 try:
-    with open('/app/config_destino.json', 'r') as f:
+    with open('config_destino.json', 'r') as f:
         config_destino = json.load(f)
 except Exception,e:
     print "Json de destino inválido"
 
 try:
-    with open('/app/config_params.json', 'r') as f:
+    with open('config_params.json', 'r') as f:
         config_params = json.load(f)
 except Exception,e:
     print "Json de parâmetros inválido"
