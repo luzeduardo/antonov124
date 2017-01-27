@@ -94,9 +94,9 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
 
 def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class):
     google_processing_price_class = ''
-    for config_origem in config_origem:
-        for destino in config_destinos.items():
-            for datas in config_datas:
+    for datas in config_datas:
+        for config_origem in config_origem:
+            for destino in config_destinos.items():
                 try:
                     #start_time_loop = time.time()
                     if is_weekend_day(datas[0]) and not ida_durante_semana: #ida apenas fds
