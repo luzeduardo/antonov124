@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
-
-pip install pytest selenium virtualenv
+pip install virtualenv
 virtualenv env
-env/bin/activate
-pip install -r requirements
+source env/bin/activate
+pip install -r requirements.txt
