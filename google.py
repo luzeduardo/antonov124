@@ -1,18 +1,16 @@
 #!/usr/local/bin/python
 # coding: utf-8
-# To install the Python client library:
-# pip install -U selenium
+
+from datetime import datetime, date, timedelta
+from collections import deque
+import time
+import json
+import sys
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from datetime import datetime, date, timedelta
-from collections import OrderedDict, deque
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import time
-import json
 import re
-import os, sys
+
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -92,11 +90,8 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
             continue
         counter_days = counter_days - 1
         itr += 1
-
     return datas
 
-# print 'Hora Início: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
-#start_time = time.time()
 def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep):
     google_cheap_price_class = '-d-yb'
     google_processing_price_class = ''
@@ -115,10 +110,8 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     config_dia_fim = datas[1]
                     driver = webdriver.Chrome(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
                     # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    # driver = webdriver.Remote(command_executor='http://127.0.0.1:8910', desired_capabilities=DesiredCapabilities.PHANTOMJS)
-                    driver.set_window_size( 2048, 2048)  # set browser size.
 
+                    driver.set_window_size( 2048, 2048)  # set browser size.
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
                     # print url
                     driver.get( url )
@@ -129,11 +122,6 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     class_name = core.get_attribute("class")
                     class_splited = class_name.split('-',1)
                     final_class = '.' + class_splited[0] + google_cheap_price_class
-                    wait_class = '.' + class_splited[0] + google_processing_price_class
-
-                    #Testa se elemento de processamento sumiu e processegue com o script
-                    element_existe = True
-                    teste_processando = 0
 
                     try:
                         time.sleep(timersleep)
