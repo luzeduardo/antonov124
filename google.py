@@ -144,7 +144,8 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         valor_processado = valor_exibicao.split("R$")
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
-                        sys.stdout.write("Valor" + "\t"+ valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M"))
+
+                        print "Valor" + "\t"+ valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M")
                         driver.quit()
                     except NoSuchElementException, e:
                         notfound_class = '.' + class_splited[0] + '-Pb-e'
@@ -157,33 +158,29 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     except Exception, e:
                         problemas.append('Problema ao retornar valor de: ' + str(destino[1]) +"\t" + url)
                         driver.quit()
-                    #print("--- %s seconds ---" % (time.time() - start_time_loop))
                 except Exception, e:
                     problemas.append('Problema ao retornar elemento principal: ' + str(destino[1]) +"\t")
                     driver.quit()
-#print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
-#print("--- %s seconds ---" % (time.time() - start_time))
-# @TODO verificar o que fazer com os erros
-# for erros in problemas:
-#     print erros
+
+print 'Hora Fim: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
 
 try:
     with open('/app/config_origem.json', 'r') as f:
         config_origem = json.load(f)
 except Exception,e:
-    sys.stdout.write("Json de origem inválido")
+    print "Json de origem inválido"
 
 try:
     with open('/app/config_destino.json', 'r') as f:
         config_destino = json.load(f)
 except Exception,e:
-    sys.stdout.write("Json de destino inválido")
+    print "Json de destino inválido"
 
 try:
     with open('/app/config_params.json', 'r') as f:
         config_params = json.load(f)
 except Exception,e:
-    sys.stdout.write("Json de parâmetros inválido")
+    print "Json de parâmetros inválido"
 
 try:
     min_days_in_place = config_params['minimo_dias_no_lugar']
@@ -191,7 +188,7 @@ try:
     ida_durante_semana = config_params['ida_durante_semana']
     volta_durante_semana = config_params['volta_durante_semana']
 except Exception, e:
-    sys.stdout.write("Json de parâmetros inválido")
+    print "Json de parâmetros inválido"
 
 try:
     datas = ""
@@ -206,7 +203,7 @@ try:
 
     datas = date_interval(s_year,s_month, s_day, e_year,e_month, e_day)
 except Exception, e:
-    sys.stdout.write("Período de datas inválido")
+    print "Período de datas inválido"
 # ou setando na mao
 # datas = [
 #     ['2017-05-05','2017-05-09']

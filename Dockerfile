@@ -13,4 +13,4 @@ RUN curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION
   && rm "chromedriver_linux64.zip"
 
 WORKDIR /app
-CMD ["python", "google.py"]
+CMD ["python", "-u", "google.py"]
