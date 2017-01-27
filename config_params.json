@@ -1,0 +1,12 @@
+{
+  "start_day": 1,
+  "start_month": 4,
+  "start_year": 2017,
+  "end_day": 15,
+  "end_month": 5,
+  "end_year": 2017,
+  "minimo_dias_no_lugar": 3,
+  "periodo_de_dias_exatos":"False",
+  "ida_durante_semana":"True",
+  "volta_durante_semana":"True"
+}
