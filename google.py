@@ -97,7 +97,7 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
 
 # print 'Hora Início: ' + datetime.now().strftime("%d/%m/%Y %H:%M")
 #start_time = time.time()
-def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place):
+def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep):
     google_cheap_price_class = '-d-yb'
     google_processing_price_class = ''
     for config_origem in config_origem:
@@ -113,17 +113,17 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         continue
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
-                    #driver = webdriver.Firefox()
+                    driver = webdriver.Chrome(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
                     # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
                     # driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    driver = webdriver.Remote(command_executor='http://127.0.0.1:8910', desired_capabilities=DesiredCapabilities.PHANTOMJS)
+                    # driver = webdriver.Remote(command_executor='http://127.0.0.1:8910', desired_capabilities=DesiredCapabilities.PHANTOMJS)
                     driver.set_window_size( 2048, 2048)  # set browser size.
 
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
                     # print url
                     driver.get( url )
-                    time.sleep(2)
-                    driver.implicitly_wait(2)
+                    time.sleep(timersleep)
+                    driver.implicitly_wait(timersleep)
 
                     core = driver.find_element_by_css_selector('#root')
                     class_name = core.get_attribute("class")
@@ -136,15 +136,15 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     teste_processando = 0
 
                     try:
-                        time.sleep(2)
-                        driver.implicitly_wait(2)
+                        time.sleep(timersleep)
+                        driver.implicitly_wait(timersleep)
                         resultado = driver.find_element_by_css_selector(final_class)
                         # data hora consulta, origem, valor, data pesquisada ida, data pesquisada volta, destino, url acesso
                         valor_exibicao = resultado.text
                         valor_processado = valor_exibicao.split("R$")
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
-                        print "Valor" + "\t"+ valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M")
+                        sys.stdout.write("Valor" + "\t"+ valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M"))
                         driver.quit()
                     except NoSuchElementException, e:
                         notfound_class = '.' + class_splited[0] + '-Pb-e'
@@ -171,19 +171,19 @@ try:
     with open('/app/config_origem.json', 'r') as f:
         config_origem = json.load(f)
 except Exception,e:
-    print "Json de origem inválido"
+    sys.stdout.write("Json de origem inválido")
 
 try:
     with open('/app/config_destino.json', 'r') as f:
         config_destino = json.load(f)
 except Exception,e:
-    print "Json de destino inválido"
+    sys.stdout.write("Json de destino inválido")
 
 try:
     with open('/app/config_params.json', 'r') as f:
         config_params = json.load(f)
 except Exception,e:
-    print "Json de parâmetros inválido"
+    sys.stdout.write("Json de parâmetros inválido")
 
 try:
     min_days_in_place = config_params['minimo_dias_no_lugar']
@@ -191,7 +191,7 @@ try:
     ida_durante_semana = config_params['ida_durante_semana']
     volta_durante_semana = config_params['volta_durante_semana']
 except Exception, e:
-    print "Json de parâmetros inválido"
+    sys.stdout.write("Json de parâmetros inválido")
 
 try:
     datas = ""
@@ -202,10 +202,11 @@ try:
     e_year = config_params['end_year']
     e_month = config_params['end_month']
     e_day = config_params['end_day']
+    timersleep = config_params['sleep']
 
     datas = date_interval(s_year,s_month, s_day, e_year,e_month, e_day)
 except Exception, e:
-    print "Período de datas inválido"
+    sys.stdout.write("Período de datas inválido")
 # ou setando na mao
 # datas = [
 #     ['2017-05-05','2017-05-09']

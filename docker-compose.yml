@@ -1,11 +1,4 @@
-phantom:
-  image: wernight/phantomjs
-  ports:
-    - "8910:8910"
 python:
   build: .
-  links:
-    - phantom
   volumes:
     - ./:/app
-# docker run -p 8910:8910 wernight/phantomjs phantomjs --webdriver=8910
