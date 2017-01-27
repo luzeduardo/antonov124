@@ -121,8 +121,6 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     final_class = '.' + class_splited[0] + google_cheap_price_class
 
                     try:
-                        time.sleep(timersleep)
-                        driver.implicitly_wait(timersleep)
                         resultado = driver.find_element_by_css_selector(final_class)
                         # data hora consulta, origem, valor, data pesquisada ida, data pesquisada volta, destino, url acesso
                         valor_exibicao = resultado.text
