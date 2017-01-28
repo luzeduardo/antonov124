@@ -114,6 +114,9 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         continue
                     if exactly_days_check and not is_valid_min_days_in_place(datas[0], datas[1], min_days_in_place):
                         continue
+                    if datetime.strptime(datas[1], "%Y-%m-%d") >= datetime.strptime(datas[1], "%Y-%m-%d"):
+                        continue
+
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
                     driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
