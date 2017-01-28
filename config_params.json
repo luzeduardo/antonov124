@@ -6,10 +6,10 @@
   "end_month": 10,
   "end_year": 2017,
   "minimo_dias_no_lugar": 3,
-  "periodo_de_dias_exatos":"True",
-  "ida_sexta_feira":"True",
-  "ida_seg_qui":"False",
-  "volta_seg_qui":"False",
+  "periodo_de_dias_exatos":true,
+  "ida_sexta_feira":true,
+  "ida_seg_qui":false,
+  "volta_seg_qui":false,
   "sleep":1,
   "classe_google_menor_preco_sufixo":"-d-yb"
 }

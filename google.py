@@ -11,7 +11,6 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import re
 
-
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -102,25 +101,24 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
 
 def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
-    file=open('passagem_'+datetime.now().strftime("%d%m%Y")+'.csv','a')
+    file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
     for datas in config_datas:
         for config_origem in origem:
             for destino in config_destinos.items():
                 try:
-                    #start_time_loop = time.time()
                     if is_friday(datas[0]) and not ida_sexta_feira:
                         continue
-                    if is_weekend_day(datas[0]) and not ida_durante_semana: #ida apenas fds
+                    if not ida_sexta_feira and not is_weekend_day(datas[0]) and not ida_durante_semana:
                         continue
-                    if is_weekend_day(datas[1]) and not volta_durante_semana: #volta apenas fds
+                    if not is_weekend_day(datas[1]) and not volta_durante_semana:
                         continue
-                    if exactly_days_check and not is_valid_min_days_in_place(datas[0], datas[1], min_days_in_place):
+                    if not exactly_days_check and not is_valid_min_days_in_place(datas[0], datas[1], min_days_in_place):
                         continue
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
                     driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    driver.set_window_size( 2048, 2048)  # set browser size.
-                    url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
+                    driver.set_window_size(2048, 2048)  # set browser size.
+                    url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+ config_dia_inicio + ';r=' + config_dia_fim
                     driver.get(url)
                     time.sleep(timersleep)
                     driver.implicitly_wait(timersleep)
@@ -132,7 +130,6 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
 
                     try:
                         resultado = driver.find_element_by_css_selector(final_class)
-                        # data hora consulta, origem, valor, data pesquisada ida, data pesquisada volta, destino, url acesso
                         valor_exibicao = resultado.text
                         valor_processado = valor_exibicao.split("R$")
                         valor_processado = valor_processado[1]
@@ -205,9 +202,9 @@ try:
 except Exception, e:
     print "Período de datas inválido"
 # ou setando na mao
-# datas = [
-#     ['2017-05-05','2017-05-09']
-# ]
+datas = [
+    ['2017-01-30','2017-02-01']
+]
 
 config_datas = datas
 problemas = deque()

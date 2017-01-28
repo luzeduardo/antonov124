@@ -27,11 +27,11 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
   "minimo_dias_no_lugar": 3,
 
   //Considerar outros intervalos diferentes de minimo_dias_no_lugar
-  "periodo_de_dias_exatos":"False",
+  "periodo_de_dias_exatos":false,
 
-  "ida_sexta_feira":"True"
-  "ida_seg_qui":"False",
-  "volta_seg_qui":"False",
+  "ida_sexta_feira":true
+  "ida_seg_qui":false,
+  "volta_seg_qui":false,
 
   //Intervalo entre buscas no script
   "sleep":1
