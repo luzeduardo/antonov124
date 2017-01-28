@@ -202,9 +202,9 @@ try:
 except Exception, e:
     print "Período de datas inválido"
 # ou setando na mao
-datas = [
-    ['2017-01-30','2017-02-01']
-]
+# datas = [
+#     ['2017-02-03','2017-02-05']
+# ]
 
 config_datas = datas
 problemas = deque()
