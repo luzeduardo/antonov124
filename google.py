@@ -100,11 +100,11 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
         itr += 1
     return datas
 
-def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
+def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
     file=open('passagem_'+datetime.now().strftime("%d%m%Y")+'.csv','a')
     for datas in config_datas:
-        for config_origem in config_origem:
+        for config_origem in origem:
             for destino in config_destinos.items():
                 try:
                     #start_time_loop = time.time()
@@ -138,7 +138,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
 
-                        data =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
+                        data =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         print data
                         file.write(data)
                         driver.quit()
