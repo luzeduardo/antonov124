@@ -121,7 +121,6 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                     driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
                     driver.set_window_size( 2048, 2048)  # set browser size.
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+config_dia_inicio + ';r=' + config_dia_fim
-                    print "\n"
                     driver.get(url)
                     time.sleep(timersleep)
                     driver.implicitly_wait(timersleep)
@@ -139,7 +138,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
 
-                        data =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M") + "\n"
+                        data =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         print data
                         file.write(data)
                         driver.quit()
