@@ -114,7 +114,7 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         continue
                     if exactly_days_check and not is_valid_min_days_in_place(datas[0], datas[1], min_days_in_place):
                         continue
-                    if datetime.strptime(datas[1], "%Y-%m-%d") >= datetime.strptime(datas[1], "%Y-%m-%d"):
+                    if datetime.strptime(datas[0], "%Y-%m-%d") >= datetime.strptime(datas[1], "%Y-%m-%d"):
                         continue
 
                     config_dia_inicio = datas[0]
