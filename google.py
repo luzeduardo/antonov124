@@ -139,7 +139,7 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
 
-                        data =  valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + "-"  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M") + "\n"
+                        data =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M") + "\n"
                         print data
                         file.write(data)
                         driver.quit()
