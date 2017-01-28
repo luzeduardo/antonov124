@@ -108,7 +108,7 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                 try:
                     if is_friday(datas[0]) and not ida_sexta_feira:
                         continue
-                    if not ida_sexta_feira and not is_weekend_day(datas[0]) and not ida_durante_semana:
+                    if not is_friday(datas[0]) and not is_weekend_day(datas[0]) and not ida_durante_semana:
                         continue
                     if not is_weekend_day(datas[1]) and not volta_durante_semana:
                         continue
@@ -208,9 +208,9 @@ try:
 except Exception, e:
     print "Período de datas inválido"
 # ou setando na mao
-# datas = [
-#     ['2017-02-03','2017-02-05']
-# ]
+datas = [
+    ['2017-04-28','2017-04-30']
+]
 
 config_datas = datas
 problemas = deque()
