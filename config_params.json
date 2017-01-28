@@ -1,14 +1,15 @@
 {
   "start_day": 1,
-  "start_month": 4,
+  "start_month": 8,
   "start_year": 2017,
-  "end_day": 15,
-  "end_month": 5,
+  "end_day": 1,
+  "end_month": 10,
   "end_year": 2017,
   "minimo_dias_no_lugar": 3,
   "periodo_de_dias_exatos":"True",
-  "ida_durante_semana":"True",
-  "volta_durante_semana":"True",
+  "ida_sexta_feira":"True",
+  "ida_durante_semana":"False",
+  "volta_durante_semana":"False",
   "sleep":1,
   "classe_google_menor_preco_sufixo":"-d-yb"
 }

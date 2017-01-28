@@ -50,13 +50,21 @@ def is_valid_min_days_in_place(start, end, min_days_in_place, exact=True):
             return True
     return False
 
+def is_friday(date):
+    date_format = "%Y-%m-%d"
+    day_number = datetime.strptime(date, date_format).weekday()
+    if day_number == 4:
+        return True
+    else:
+        return False
+
 def is_weekend_day(date):
     date_format = "%Y-%m-%d"
     day_number = datetime.strptime(date, date_format).weekday()
     if day_number == 5 or day_number == 6:
-        return False
-    else:
         return True
+    else:
+        return False
 
 def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
     '''
@@ -92,13 +100,16 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
         itr += 1
     return datas
 
-def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class):
+def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
+    file=open('passagens_'+datetime.now().strftime("%d%m%Y")+'.csv','a')
     for datas in config_datas:
         for config_origem in config_origem:
             for destino in config_destinos.items():
                 try:
                     #start_time_loop = time.time()
+                    if is_friday(datas[0]) and not ida_sexta_feira:
+                        continue
                     if is_weekend_day(datas[0]) and not ida_durante_semana: #ida apenas fds
                         continue
                     if is_weekend_day(datas[1]) and not volta_durante_semana: #volta apenas fds
@@ -128,7 +139,9 @@ def search(config_origem, config_destinos, config_datas, ida_durante_semana, vol
                         valor_processado = valor_processado[1]
                         valor_processado = re.sub('[^0-9]+', '', valor_processado)
 
-                        print valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + "-"  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M")
+                        data =  valor_exibicao + "\t" + valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1]) + "\t" + "-"  +"\t" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y") + "\t" + datetime.now().strftime("%H:%M") + "\n"
+                        print data
+                        file.write(data)
                         driver.quit()
                     except NoSuchElementException, e:
                         print "\n"
@@ -170,6 +183,7 @@ except Exception,e:
 try:
     min_days_in_place = config_params['minimo_dias_no_lugar']
     exactly_days_check = config_params['periodo_de_dias_exatos']
+    ida_sexta_feira = config_params['ida_sexta_feira']
     ida_durante_semana = config_params['ida_durante_semana']
     volta_durante_semana = config_params['volta_durante_semana']
 except Exception, e:
@@ -199,4 +213,4 @@ config_datas = datas
 problemas = deque()
 nao_existe = deque()
 search(config_origem, config_destino, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check,
-       min_days_in_place, timersleep, google_cheap_price_class)
+       min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira)
