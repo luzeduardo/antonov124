@@ -8,8 +8,8 @@
   "minimo_dias_no_lugar": 3,
   "periodo_de_dias_exatos":"True",
   "ida_sexta_feira":"True",
-  "ida_durante_semana":"False",
-  "volta_durante_semana":"False",
+  "ida_seg_qui":"False",
+  "volta_seg_qui":"False",
   "sleep":1,
   "classe_google_menor_preco_sufixo":"-d-yb"
 }

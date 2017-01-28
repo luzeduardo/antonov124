@@ -1,6 +1,6 @@
 ## Antonov124
 - Um utilitário para busca de passagens aéreas.
-- O resultado será algo parecido com o valor encontrado, datas de embarque/desembarque e origem/destino e link para acesso :
+- O resultado será algo parecido com o valor encontrado, datas de embarque/desembarque e origem/destino e link para acesso em arquivo de nome passagem_data.csv :
 __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 
 
@@ -29,11 +29,14 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
   //Considerar outros intervalos diferentes de minimo_dias_no_lugar
   "periodo_de_dias_exatos":"False",
 
-  "ida_durante_semana":"True",
-  "volta_durante_semana":"True",
+  "ida_sexta_feira":"True"
+  "ida_seg_qui":"False",
+  "volta_seg_qui":"False",
 
   //Intervalo entre buscas no script
   "sleep":1
+  //sufixo classe google utilizada para o menor valor
+  "classe_google_menor_preco_sufixo":"-d-yb"
 }
 ```
 

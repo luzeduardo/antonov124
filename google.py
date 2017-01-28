@@ -102,7 +102,7 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
 
 def search(config_origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
-    file=open('passagens_'+datetime.now().strftime("%d%m%Y")+'.csv','a')
+    file=open('passagem_'+datetime.now().strftime("%d%m%Y")+'.csv','a')
     for datas in config_datas:
         for config_origem in config_origem:
             for destino in config_destinos.items():
