@@ -184,8 +184,8 @@ try:
     min_days_in_place = config_params['minimo_dias_no_lugar']
     exactly_days_check = config_params['periodo_de_dias_exatos']
     ida_sexta_feira = config_params['ida_sexta_feira']
-    ida_durante_semana = config_params['ida_durante_semana']
-    volta_durante_semana = config_params['volta_durante_semana']
+    ida_durante_semana = config_params['ida_seg_qui']
+    volta_durante_semana = config_params['volta_seg_qui']
 except Exception, e:
     print "Json de parâmetros inválido"
 
