@@ -119,8 +119,11 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
 
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
-                    driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
-                    driver.set_window_size(2048, 2048)  # set browser size.
+                    try:
+                        driver = webdriver.PhantomJS(service_args=['--ssl-protocol=any', '--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+                        driver.set_window_size(2048, 2048)  # set browser size.
+                    except Exception, e:
+                        print "Erro com driver"
                     url = 'https://www.google.com.br/flights/#search;f=' + config_origem + ';t='+ str(destino[0]) +';d='+ config_dia_inicio + ';r=' + config_dia_fim
                     driver.get(url)
                     time.sleep(timersleep)
