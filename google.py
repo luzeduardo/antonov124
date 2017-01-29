@@ -3,6 +3,7 @@
 
 from datetime import datetime, date, timedelta
 from collections import deque
+from itertools import combinations
 import time
 import json
 import sys
@@ -71,13 +72,13 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
     '''
     days = days_between(s_year,s_month, s_day, e_year,e_month, e_day)
     counter_days = days
-    datas = list()
+    datas_list = list()
 
     #menor maior
     while counter_days > 0:
         for result in perdelta_start_to_end(date(s_year,s_month, s_day), date(e_year,e_month, e_day), timedelta(days=1)):
             if counter_days > 0:
-                datas.append( [( str(result) ), (str(date(e_year,e_month, e_day) ))] )
+                datas_list.append(str(result))
             counter_days = counter_days - 1
 
     #maior menor
@@ -90,18 +91,23 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
                 if itr == 0:
                     continue
                 if counter_days > 0:
-                    datas.append( [str(date(s_year, s_month, s_day + itr)) , str(result) ] )
+                    datas_list.append(str(result))
         except Exception, e:
             counter_days = counter_days - 1
             itr += 1
             continue
         counter_days = counter_days - 1
         itr += 1
-    return datas
+        datas_list = setlist(datas_list)
+    return combinations(datas_list, 2)
+
+def setlist(lst=[]):
+   return list(set(lst))
 
 def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
     file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
+    # iii = 0
     for datas in config_datas:
         for config_origem in origem:
             for destino in config_destinos.items():
@@ -116,6 +122,10 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         continue
                     if datetime.strptime(datas[0], "%Y-%m-%d") >= datetime.strptime(datas[1], "%Y-%m-%d"):
                         continue
+
+                    # print config_origem + ' - ' + str(destino[0])  + ' - ' + datas[0] + ' - ' + datas[1] + ' - ' + str(iii)
+                    # iii += 1
+                    # continue
 
                     config_dia_inicio = datas[0]
                     config_dia_fim = datas[1]
