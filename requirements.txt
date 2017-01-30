@@ -1,3 +1,4 @@
 argparse==1.2.1
 selenium==3.0.2
 simplejson==2.0.9
+rethinkdb
