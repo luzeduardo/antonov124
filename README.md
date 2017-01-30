@@ -46,8 +46,8 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 - http://phantomjs.org/
 - python-pip python-dev
 
+- com save_db == true
 ```sh
-`com save_db == true`
 `docker pull rethinkdb`
 `docker run -p 8088:8080 -p 28015:28015 --name antonov-rethink -v "$PWD:/data"  rethinkdb`
 `bash config.sh `
@@ -55,8 +55,8 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 `python google.py`
 ```
 
+- com save_db == false
 ```sh
-`com save_db == false`
 `bash config.sh `
 `source env/bin/activate`
 `python google.py`
