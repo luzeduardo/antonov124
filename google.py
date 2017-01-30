@@ -106,7 +106,6 @@ def setlist(lst=[]):
 
 def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
     google_processing_price_class = ''
-    file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
     # iii = 0
     for datas in config_datas:
         for config_origem in origem:
@@ -154,6 +153,7 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         data =  valor_processado + "\t" + url  + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         datafile =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         print data
+                        file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
                         file.write(datafile)
                         driver.quit()
                     except NoSuchElementException, e:
