@@ -3,3 +3,4 @@ env
 ghostdriver.log
 passagem_*.csv
 .~*
+rethinkdb_data/

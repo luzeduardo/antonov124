@@ -36,7 +36,9 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
   //Intervalo entre buscas no script
   "sleep":1
   //sufixo classe google utilizada para o menor valor
-  "classe_google_menor_preco_sufixo":"-d-yb"
+  "classe_google_menor_preco_sufixo":"-d-yb",
+  //Salvar em banco
+  "save_db":true
 }
 ```
 
@@ -45,6 +47,16 @@ __R$307	307	2017-05-13	2017-05-15	GIG - Belo Horizonte – Confins (MG)	CNF__
 - python-pip python-dev
 
 ```sh
+`com save_db == true`
+`docker pull rethinkdb`
+`docker run -p 8088:8080 -p 28015:28015 --name antonov-rethink -v "$PWD:/data"  rethinkdb`
+`bash config.sh `
+`source env/bin/activate`
+`python google.py`
+```
+
+```sh
+`com save_db == false`
 `bash config.sh `
 `source env/bin/activate`
 `python google.py`

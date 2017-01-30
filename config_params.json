@@ -11,5 +11,6 @@
   "ida_seg_qui":false,
   "volta_seg_qui":false,
   "sleep":1,
-  "classe_google_menor_preco_sufixo":"-d-yb"
+  "classe_google_menor_preco_sufixo":"-d-yb",
+  "save_db":true
 }

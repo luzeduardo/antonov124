@@ -11,6 +11,7 @@ import sys
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import re
+import rethinkdb as r
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -104,7 +105,8 @@ def date_interval(s_year,s_month, s_day, e_year,e_month, e_day):
 def setlist(lst=[]):
    return list(set(lst))
 
-def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira):
+def search(origem, config_destinos, config_datas, ida_durante_semana, volta_durante_semana,
+           exactly_days_check, min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira, save_db):
     google_processing_price_class = ''
     # iii = 0
     for datas in config_datas:
@@ -153,9 +155,32 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         data =  valor_processado + "\t" + url  + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         datafile =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         print data
-                        file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
-                        file.write(datafile)
+
+                        if save_db:
+                            try:
+                                r.connect('localhost', 28015).repl()
+                                try:
+                                    r.table_create('flight').run()
+                                except Exception, e:
+                                    print 'table exists'
+
+                                r.table('flight').insert({
+                                    'valor':valor_processado,
+                                    'url': url,
+                                    'dia_inicio': config_dia_inicio,
+                                    'dia_fim': config_dia_fim,
+                                    'origem': str(config_origem),
+                                    'destino': str(destino[1]),
+                                    'dh': datetime.now().strftime("%d/%m/%Y %H:%M")
+                                }).run()
+                            except Exception, e:
+                                file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
+                                file.write(datafile)
+                        else:
+                            file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
+                            file.write(datafile)
                         driver.quit()
+
                     except NoSuchElementException, e:
                         print "\n"
                         notfound_class = '.' + class_splited[0] + '-Pb-e'
@@ -212,6 +237,7 @@ try:
     e_month = config_params['end_month']
     e_day = config_params['end_day']
     timersleep = config_params['sleep']
+    save_db = config_params['save_db']
     google_cheap_price_class = config_params['classe_google_menor_preco_sufixo']
 
     datas = date_interval(s_year,s_month, s_day, e_year,e_month, e_day)
@@ -226,4 +252,4 @@ config_datas = datas
 problemas = deque()
 nao_existe = deque()
 search(config_origem, config_destino, config_datas, ida_durante_semana, volta_durante_semana, exactly_days_check,
-       min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira)
+       min_days_in_place, timersleep, google_cheap_price_class, ida_sexta_feira, save_db)
