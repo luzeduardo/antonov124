@@ -11,7 +11,6 @@ import sys
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import re
-import rethinkdb as r
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -155,30 +154,8 @@ def search(origem, config_destinos, config_datas, ida_durante_semana, volta_dura
                         data =  valor_processado + "\t" + url  + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         datafile =  valor_processado + "\t" + config_dia_inicio + "\t" + config_dia_fim + "\t" + str(config_origem) + "\t" + str(destino[1])  + "-" + str(destino[0]) + "\t" + url  + "\t" + datetime.now().strftime("%d/%m/%Y %H:%M") + "\n"
                         print data
-
-                        if save_db:
-                            try:
-                                r.connect('localhost', 28015).repl()
-                                try:
-                                    r.table_create('flight').run()
-                                except Exception, e:
-                                    print 'table exists'
-
-                                r.table('flight').insert({
-                                    'valor':valor_processado,
-                                    'url': url,
-                                    'dia_inicio': config_dia_inicio,
-                                    'dia_fim': config_dia_fim,
-                                    'origem': str(config_origem),
-                                    'destino': str(destino[1]),
-                                    'dh': datetime.now().strftime("%d/%m/%Y %H:%M")
-                                }).run()
-                            except Exception, e:
-                                file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
-                                file.write(datafile)
-                        else:
-                            file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
-                            file.write(datafile)
+                        file = open('passagem_' + datetime.now().strftime("%d%m%Y") + '.csv', 'a')
+                        file.write(datafile)
                         driver.quit()
 
                     except NoSuchElementException, e:
